@@ -4,6 +4,7 @@ services:
     ports:
       - '5432:5432'
     container_name: third_session_api
+    image: third_session_api_image
     volumes:
       - appdata:/app/data
     environment:
