@@ -2,11 +2,32 @@ services:
   api:
     build: ./api
     ports:
-      - "3000:3000"
+      - '5432:5432'
+    container_name: third_session_api
+    volumes:
+      - appdata:/app/data
     environment:
       # mongodb://<host>:<port>/<db>
-      MONGO_URL: mongodb://mongo:5432/todos
+      MONGO_URL: mongodb://mongo:27017/todos
       PORT: 5432
+    depends_on:
+      mongo:
+        condition: service_healthy
   mongo:
     image: mongo:7
-    command: ["--bind_ip_all"]
+    command: ['--bind_ip_all']
+    container_name: third_session_mongo
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.runCommand('ping')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  appdata:
+    name: third_session_appdata_volume
+  mongo_data:
+    name: third_session_mongo_data_volume
