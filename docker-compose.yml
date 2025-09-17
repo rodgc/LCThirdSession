@@ -1,0 +1,12 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      # mongodb://<host>:<port>/<db>
+      MONGO_URL: mongodb://mongo:5432/todos
+      PORT: 5432
+  mongo:
+    image: mongo:7
+    command: ["--bind_ip_all"]
