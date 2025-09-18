@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/#image-variants
-FROM node:20-bookworm-slim
+FROM node:20-alpine AS base
 
 WORKDIR /usr/src/app
 
