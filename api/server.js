@@ -8,8 +8,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-const PORT = process.env.PORT;
-const MONGO_URL = process.env.MONGO_URL;
+const PORT = process.env.PORT || 3003;
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017';
 
 // Wrap in async function to use await
 async function startServer() {
